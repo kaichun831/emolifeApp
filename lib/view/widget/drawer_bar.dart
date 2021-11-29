@@ -84,7 +84,9 @@ class _CusDrawerBarState extends State<CusDrawerBar> {
               constraints: const BoxConstraints.tightFor(width: double.infinity, height: 50),
               child: ElevatedButton(
                 child: const Text('個人資訊'),
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed('/userInfo');
+                },
               ),),
           ),
           Padding(

@@ -1,0 +1,489 @@
+import 'package:emolife_purchasing/view/widget/drawer_bar.dart';
+import 'package:flutter/material.dart';
+
+class UserInfoScreen extends StatefulWidget {
+  const UserInfoScreen({Key? key}) : super(key: key);
+
+  @override
+  State<UserInfoScreen> createState() => _UserInfoScreenState();
+}
+
+class _UserInfoScreenState extends State<UserInfoScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
+    return Scaffold(
+      key: scaffoldKey,
+      drawer: const CusDrawerBar(),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () => scaffoldKey.currentState?.openDrawer(),
+            icon: const Icon(
+              Icons.menu_rounded,
+              color: Colors.black,
+            )),
+        backgroundColor: Colors.white,
+        title: Text(
+          "個人資訊",
+          style: const TextStyle(color: Colors.black),
+        ),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 30.0, right: 30),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('預扣點數'),
+                        const Text(
+                          '199',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        ),
+                        ElevatedButton(
+                            onPressed: () {},
+                            child: const Text('查看'),
+                            style: ElevatedButton.styleFrom(
+                                shape: const StadiumBorder(),
+                                primary:
+                                    const Color.fromRGBO(248, 110, 110, 1)))
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: 40.0, right: 40, top: 20, bottom: 20),
+                      child: Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(150)),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('點數餘額'),
+                        const Text(
+                          '899',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 25),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: const Text('儲值'),
+                          style: ElevatedButton.styleFrom(
+                              shape: const StadiumBorder(),
+                              primary: const Color.fromRGBO(255, 139, 45, 1)),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+                const Text(
+                  '阿團',
+                  style: TextStyle(
+                      color: const Color.fromRGBO(101, 108, 238, 1),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  children: const [
+                    Text("用戶姓名:王阿團"),
+                    Text("聯絡電話:0968-123456"),
+                    Text("電子信箱:kaichun831@gmail.com"),
+                    Text("生日:1993/08/31")
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('編輯基本資訊'),
+                  style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      primary: const Color.fromRGBO(101, 108, 238, 1)),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  children: const [
+                    Text("預設店到店:薰衣草門市 7-11"),
+                    Text("可交易地區:台中市"),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('變更交易資訊'),
+                  style: ElevatedButton.styleFrom(
+                      shape: const StadiumBorder(),
+                      primary: const Color.fromRGBO(101, 108, 238, 1)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 50, right: 50.0),
+                  child: TabBar(
+                      controller: _tabController,
+                      labelColor: Colors.black,
+                      indicator: const UnderlineTabIndicator(
+                        borderSide: BorderSide(
+                            width: 3.0,
+                            color: Color.fromRGBO(248, 110, 110, 1)),
+                        insets: EdgeInsets.symmetric(horizontal: 80),
+                      ),
+                      unselectedLabelColor: Colors.grey,
+                      tabs: const [
+                        Tab(
+                          child: Text("開團"),
+                        ),
+                        Tab(
+                          child: Text("跟團"),
+                        ),
+                      ]),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  height: 1,
+                  thickness: 1.5,
+                ),
+                SizedBox(
+                  height: 540,
+                  width: MediaQuery.of(context).size.width,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      StartGroupView(),
+                      FlowGroupView(),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class StartGroupView extends StatefulWidget {
+  const StartGroupView({Key? key}) : super(key: key);
+
+  @override
+  State<StartGroupView> createState() => _StartGroupViewState();
+}
+class _StartGroupViewState extends State<StartGroupView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('開團評比:★★★★☆'),
+        Text('開團次數:3'),
+        Text('為您省下:666 \$'),
+        SizedBox(
+          height: 20,
+        ),
+        _getOrdersView()
+      ],
+    ));
+  }
+
+  Widget _getOrdersView() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          '已完成單據',
+          style: TextStyle(fontSize: 10),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
+          child: Container(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("團長",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
+                        Text("完成接收日",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
+                      ],
+                    ),
+                    Expanded(child: Scrollbar(child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15, top: 6, bottom: 6),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Leader $index",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        "2021-12-30",
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ));
+                        }),))
+                  ],
+                ),
+              )),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
+          '已成立單據',
+          style: TextStyle(fontSize: 10),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
+          child: Container(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text("團長",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
+                        Text("完成接收日",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
+                      ],
+                    ),
+                    Expanded(child: Scrollbar(child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15, top: 6, bottom: 6),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Leader $index",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        "2021-12-30",
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ));
+                        }),))
+                  ],
+                ),
+              )),
+        ),
+      ],
+    );
+  }
+}
+
+class FlowGroupView extends StatefulWidget {
+  const FlowGroupView({Key? key}) : super(key: key);
+
+  @override
+  State<FlowGroupView> createState() => _FlowGroupViewState();
+}
+class _FlowGroupViewState extends State<FlowGroupView> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            _getOrdersView()
+          ],
+        ));
+  }
+
+  Widget _getOrdersView() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          '已完成單據',
+          style: TextStyle(fontSize: 10),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
+          child: Container(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("團長",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
+                        Text("完成接收日",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
+                      ],
+                    ),
+                    Expanded(child: Scrollbar(child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15, top: 6, bottom: 6),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Leader $index",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        "2021-12-30",
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ));
+                        }),))
+                  ],
+                ),
+              )),
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        const Text(
+          '已成立單據',
+          style: TextStyle(fontSize: 10),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
+          child: Container(
+              constraints: const BoxConstraints(maxHeight: 200),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [
+                        Text("團長",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
+                        Text("完成接收日",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
+                      ],
+                    ),
+                    Expanded(child: Scrollbar(child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: 5,
+                        itemBuilder: (ctx, index) {
+                          return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 4.0, horizontal: 0),
+                              child: Container(
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: Colors.blueGrey,
+                                    borderRadius: BorderRadius.circular(12)),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15, top: 6, bottom: 6),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        "Leader $index",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        "2021-12-30",
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ));
+                        }),))
+                  ],
+                ),
+              )),
+        ),
+      ],
+    );
+  }
+}

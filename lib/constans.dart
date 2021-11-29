@@ -9,6 +9,7 @@ class Constans{
   static var APP_VERSION = "";
   static var APP_NAME="";
   static var APP_ID="";
+  static var User = "KG";
   static Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
     'Authorization': 'Bearer RF'
