@@ -9,6 +9,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Constans.dart';
 import 'controller/cart_view_controller.dart';
 import 'view/screen/drawer_user_info_screen.dart';
+import 'view/screen/follow_main_screen.dart';
 import 'view/screen/main_screen.dart';
 
 void main() {
@@ -39,11 +40,13 @@ class _MyAppState extends State<MyApp> {
             platform: TargetPlatform.iOS,
             primarySwatch: Colors.blue,
             primaryColor: Colors.white),
-        initialRoute: '/signIn',
+        initialRoute: '/follow',
         debugShowCheckedModeBanner: false,
         getPages: [
           GetPage(
               name: '/', page: () => const MainScreen(), binding: EasyBind()),
+          GetPage(
+              name: '/follow', page: () => const FollowMainScreen(), binding: EasyBind()),
           GetPage(
               name: '/signIn',
               page: () => const LoginScreen(),

@@ -10,33 +10,29 @@ class UserInfoScreen extends StatefulWidget {
 
 class _UserInfoScreenState extends State<UserInfoScreen>
     with SingleTickerProviderStateMixin {
+  var isHasNotification = true;
   late TabController _tabController;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  // ///滑动控制器
+  // late ScrollController scrollController;
+  //
+  // ///抽屉控制器
+  // late DragController dragController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    // scrollController = ScrollController();
+    // dragController = DragController();
   }
 
   @override
   Widget build(BuildContext context) {
-    var scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: scaffoldKey,
       drawer: const CusDrawerBar(),
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => scaffoldKey.currentState?.openDrawer(),
-            icon: const Icon(
-              Icons.menu_rounded,
-              color: Colors.black,
-            )),
-        backgroundColor: Colors.white,
-        title: Text(
-          "個人資訊",
-          style: const TextStyle(color: Colors.black),
-        ),
-      ),
+      appBar: _appBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 30.0, right: 30),
@@ -172,7 +168,7 @@ class _UserInfoScreenState extends State<UserInfoScreen>
                   thickness: 1.5,
                 ),
                 SizedBox(
-                  height: 540,
+                  height: 580,
                   width: MediaQuery.of(context).size.width,
                   child: TabBarView(
                     controller: _tabController,
@@ -181,11 +177,39 @@ class _UserInfoScreenState extends State<UserInfoScreen>
                       FlowGroupView(),
                     ],
                   ),
-                )
+                ),
+                // buildDragWidget()
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+  AppBar _appBar(){
+    return AppBar(
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Stack(
+            children: [
+              Positioned(child: IconButton(onPressed: (){}, icon: Icon(Icons.notifications,color: Colors.blueGrey,size: 26,)),),
+              isHasNotification?Positioned(child:CircleAvatar(child: Text(''),backgroundColor: Colors.red,radius:5,),right: 8,top: 8,):SizedBox()
+            ],
+          ),
+        )
+
+      ],
+      leading: IconButton(
+          onPressed: () => scaffoldKey.currentState?.openDrawer(),
+          icon: const Icon(
+            Icons.menu_rounded,
+            color: Colors.black,
+          )),
+      backgroundColor: Colors.white,
+      title: const Text(
+        "個人資訊",
+        style: TextStyle(color: Colors.black),
       ),
     );
   }
@@ -197,6 +221,7 @@ class StartGroupView extends StatefulWidget {
   @override
   State<StartGroupView> createState() => _StartGroupViewState();
 }
+
 class _StartGroupViewState extends State<StartGroupView> {
   @override
   Widget build(BuildContext context) {
@@ -229,7 +254,7 @@ class _StartGroupViewState extends State<StartGroupView> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
           child: Container(
-              constraints: const BoxConstraints(maxHeight: 200),
+              constraints: const BoxConstraints(maxHeight: 220),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -237,41 +262,56 @@ class _StartGroupViewState extends State<StartGroupView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("團長",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
-                        Text("完成接收日",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
+                        Text(
+                          "團長",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(101, 108, 238, 1)),
+                        ),
+                        Text(
+                          "完成接收日",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(101, 108, 238, 1)),
+                        ),
                       ],
                     ),
-                    Expanded(child: Scrollbar(child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (ctx, index) {
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 6, bottom: 6),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Leader $index",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        "2021-12-30",
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    ],
+                    Expanded(
+                        child: Scrollbar(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (ctx, index) {
+                            return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15,
+                                        top: 6,
+                                        bottom: 6),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Leader $index",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "2021-12-30",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }),))
+                                ));
+                          }),
+                    ))
                   ],
                 ),
               )),
@@ -289,7 +329,7 @@ class _StartGroupViewState extends State<StartGroupView> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
           child: Container(
-              constraints: const BoxConstraints(maxHeight: 200),
+              constraints: const BoxConstraints(maxHeight: 220),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -297,41 +337,56 @@ class _StartGroupViewState extends State<StartGroupView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Text("團長",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
-                        Text("完成接收日",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
+                        Text(
+                          "團長",
+                          style: TextStyle(
+                              color: Color.fromRGBO(101, 108, 238, 1)),
+                        ),
+                        Text(
+                          "完成接收日",
+                          style: TextStyle(
+                              color: Color.fromRGBO(101, 108, 238, 1)),
+                        ),
                       ],
                     ),
-                    Expanded(child: Scrollbar(child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (ctx, index) {
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 6, bottom: 6),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Leader $index",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        "2021-12-30",
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    ],
+                    Expanded(
+                        child: Scrollbar(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (ctx, index) {
+                            return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15,
+                                        top: 6,
+                                        bottom: 6),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Leader $index",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "2021-12-30",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }),))
+                                ));
+                          }),
+                    ))
                   ],
                 ),
               )),
@@ -347,19 +402,20 @@ class FlowGroupView extends StatefulWidget {
   @override
   State<FlowGroupView> createState() => _FlowGroupViewState();
 }
+
 class _FlowGroupViewState extends State<FlowGroupView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            _getOrdersView()
-          ],
-        ));
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 20,
+        ),
+        _getOrdersView()
+      ],
+    ));
   }
 
   Widget _getOrdersView() {
@@ -376,7 +432,7 @@ class _FlowGroupViewState extends State<FlowGroupView> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
           child: Container(
-              constraints: const BoxConstraints(maxHeight: 200),
+              constraints: const BoxConstraints(maxHeight: 240),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -384,41 +440,56 @@ class _FlowGroupViewState extends State<FlowGroupView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("團長",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
-                        Text("完成接收日",style: TextStyle(color: const Color.fromRGBO(101, 108, 238, 1)),),
+                        Text(
+                          "團長",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(101, 108, 238, 1)),
+                        ),
+                        Text(
+                          "完成接收日",
+                          style: TextStyle(
+                              color: const Color.fromRGBO(101, 108, 238, 1)),
+                        ),
                       ],
                     ),
-                    Expanded(child: Scrollbar(child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (ctx, index) {
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 6, bottom: 6),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Leader $index",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        "2021-12-30",
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    ],
+                    Expanded(
+                        child: Scrollbar(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (ctx, index) {
+                            return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15,
+                                        top: 6,
+                                        bottom: 6),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Leader $index",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "2021-12-30",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }),))
+                                ));
+                          }),
+                    ))
                   ],
                 ),
               )),
@@ -436,7 +507,7 @@ class _FlowGroupViewState extends State<FlowGroupView> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(color: Colors.grey.withAlpha(80), width: 2)),
           child: Container(
-              constraints: const BoxConstraints(maxHeight: 200),
+              constraints: const BoxConstraints(maxHeight: 240),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
@@ -444,41 +515,56 @@ class _FlowGroupViewState extends State<FlowGroupView> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [
-                        Text("團長",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
-                        Text("完成接收日",style: TextStyle(color: Color.fromRGBO(101, 108, 238, 1)),),
+                        Text(
+                          "團長",
+                          style: TextStyle(
+                              color: Color.fromRGBO(101, 108, 238, 1)),
+                        ),
+                        Text(
+                          "完成接收日",
+                          style: TextStyle(
+                              color: Color.fromRGBO(101, 108, 238, 1)),
+                        ),
                       ],
                     ),
-                    Expanded(child: Scrollbar(child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: 5,
-                        itemBuilder: (ctx, index) {
-                          return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 4.0, horizontal: 0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                    color: Colors.blueGrey,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 6, bottom: 6),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        "Leader $index",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Text(
-                                        "2021-12-30",
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    ],
+                    Expanded(
+                        child: Scrollbar(
+                      child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 5,
+                          itemBuilder: (ctx, index) {
+                            return Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                      color: Colors.blueGrey,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0,
+                                        right: 15,
+                                        top: 6,
+                                        bottom: 6),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Leader $index",
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Text(
+                                          "2021-12-30",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ));
-                        }),))
+                                ));
+                          }),
+                    ))
                   ],
                 ),
               )),
