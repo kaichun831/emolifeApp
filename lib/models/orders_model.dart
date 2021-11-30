@@ -46,6 +46,8 @@ class OrderData{
   late int GoodsCount;
   late String GoodsColor;
   late int GoodsPrice;
+  late String GoodsDescription;
+  int buyCount = 0;
 
   OrderData fromMap(Map<String, dynamic> map) {
     OrderData orderDataBean = OrderData();
@@ -53,6 +55,7 @@ class OrderData{
     orderDataBean.GoodsCount = map['GoodsCount'];
     orderDataBean.GoodsColor = map['GoodsColor'];
     orderDataBean.GoodsPrice =map['GoodsPrice'];
+    orderDataBean.GoodsDescription =map['GoodsDescription'];
     return orderDataBean;
   }
   Map toJson() => {
@@ -60,5 +63,6 @@ class OrderData{
     "GoodsCount": GoodsCount,
     "GoodsColor": GoodsColor,
     "GoodsPrice": GoodsPrice,
+    "GoodsDescription": GoodsDescription,
   };
 }

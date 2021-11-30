@@ -16,41 +16,119 @@ List<Map<String, dynamic>> fakeData = [
       "OrderNo": "ORD202111240001",
       "OrderType": 1,
     },
+    "GroupLeaderInfo": {
+      "Name": "",
+      "Email": "",
+      "Score": 4.5,
+      "CreateTimes": 3
+    },
     "OrderData": [
-      {"GoodsName": "商品C", "GoodsCount": 2, "GoodsColor": "黑色","GoodsPrice":600},
-      {"GoodsName": "商品C", "GoodsCount": 2, "GoodsColor": "粉色","GoodsPrice":300},
-      {"GoodsName": "商品D", "GoodsCount": 4, "GoodsColor": "綠色","GoodsPrice":100}
+      {
+        "GoodsName": "商品A",
+        "GoodsCount": 2,
+        "GoodsColor": "黑色",
+        "GoodsPrice": 600,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品C",
+        "GoodsCount": 2,
+        "GoodsColor": "粉色",
+        "GoodsPrice": 300,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品E",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品K",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      }
     ]
   },
-  {
-    "OrderInfo": {
-      "IssueNo": "ISS20211125002",
-      "IssueCreateTime": "2022-01-01",
-      "IssueEndTime": "2022-01-04",
-      "OrderId": "00002",
-      "OrderNo": "ORD202111240001",
-      "OrderType": 0,
-    },
-    "OrderData": [
-      {"GoodsName": "商品C", "GoodsCount": 2, "GoodsColor": "黑色","GoodsPrice":200},
-      {"GoodsName": "商品C", "GoodsCount": 1, "GoodsColor": "粉色","GoodsPrice":3010},
-      {"GoodsName": "商品D", "GoodsCount": 4, "GoodsColor": "綠色","GoodsPrice":400}
-    ]
-  },  {
-    "OrderInfo": {
-      "IssueNo": "ISS20211125003",
-      "IssueCreateTime": "2022-01-01",
-      "IssueEndTime": "2022-01-04",
-      "OrderId": "00003",
-      "OrderNo": "ORD202111240001",
-      "OrderType": 1,
-    },
-    "OrderData": [
-      {"GoodsName": "商品C", "GoodsCount": 2, "GoodsColor": "黑色","GoodsPrice":600},
-      {"GoodsName": "商品C", "GoodsCount": 2, "GoodsColor": "粉色","GoodsPrice":320},
-      {"GoodsName": "商品E", "GoodsCount": 1, "GoodsColor": "綠色","GoodsPrice":100}
-    ]
-  }
 ];
 
 List<OrdersModel> models = [];

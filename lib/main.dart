@@ -40,7 +40,7 @@ class _MyAppState extends State<MyApp> {
             platform: TargetPlatform.iOS,
             primarySwatch: Colors.blue,
             primaryColor: Colors.white),
-        initialRoute: '/follow',
+        initialRoute: '/userInfo',
         debugShowCheckedModeBanner: false,
         getPages: [
           GetPage(

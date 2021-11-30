@@ -54,7 +54,7 @@ class _CusDrawerBarState extends State<CusDrawerBar> {
               child: ElevatedButton(
                 child: const Text('首頁'),
                 onPressed: () {
-                  Get.toNamed('/');
+                  Get.toNamed('/follow');
                 },
               ),),
           ),

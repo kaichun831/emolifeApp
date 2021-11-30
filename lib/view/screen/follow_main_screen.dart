@@ -1,6 +1,137 @@
+import 'package:emolife_purchasing/models/orders_model.dart';
+import 'package:emolife_purchasing/view/single/buy_carts_view.dart';
+import 'package:emolife_purchasing/view/single/edit_carts_view.dart';
 import 'package:emolife_purchasing/view/widget/drawer_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
+
+List<Map<String, dynamic>> fakeData = [
+  {
+    "OrderInfo": {
+      "IssueNo": "ISS20211125001",
+      "IssueCreateTime": "2022-01-01",
+      "IssueEndTime": "2022-01-04",
+      "OrderId": "00001",
+      "OrderNo": "ORD202111240001",
+      "OrderType": 1,
+    },
+    "GroupLeaderInfo": {
+      "Name": "",
+      "Email": "",
+      "Score": 4.5,
+      "CreateTimes": 3
+    },
+    "OrderData": [
+      {
+        "GoodsName": "商品A",
+        "GoodsCount": 2,
+        "GoodsColor": "黑色",
+        "GoodsPrice": 600,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品C",
+        "GoodsCount": 2,
+        "GoodsColor": "粉色",
+        "GoodsPrice": 300,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品E",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品K",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      },
+      {
+        "GoodsName": "商品D",
+        "GoodsCount": 4,
+        "GoodsColor": "綠色",
+        "GoodsPrice": 100,
+        "GoodsDescription":
+        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+      }
+    ]
+  },
+];
+
+List<OrdersModel> models = [];
 
 class FollowMainScreen extends StatefulWidget {
   const FollowMainScreen({Key? key}) : super(key: key);
@@ -12,13 +143,31 @@ class FollowMainScreen extends StatefulWidget {
 class _FollowMainScreenState extends State<FollowMainScreen> {
   var isHasNotification = true;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    models.clear();
+    for (int i = 0; i < fakeData.length; i++) {
+      OrderInfo? info = OrderInfo().fromMap(fakeData[i]['OrderInfo']);
+      List<OrderData> listData = [];
+      for (int x = 0; x < fakeData[i]['OrderData'].length; x++) {
+        OrderData data = OrderData().fromMap(fakeData[i]['OrderData'][x]);
+        listData.add(data);
+      }
+      OrdersModel ordersModel =
+      OrdersModel(orderInfo: info, orderData: listData);
+      models.add(ordersModel);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         key: scaffoldKey,
         drawer: const CusDrawerBar(),
         appBar:_appBar() ,
-        body: ListView.separated(
+        body: ListView.builder(
             shrinkWrap: true,
             primary: true,
             itemBuilder: (ctx, index) {
@@ -30,14 +179,11 @@ class _FollowMainScreenState extends State<FollowMainScreen> {
                     child: PageView.builder(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (ctx, index) {
-                          return _groupItem(index);
+                          return GestureDetector(child: _groupItem(index),onTap:()=>{
+                            Get.to(BuyCartsView(),arguments: [models])
+                          },);
                         }),
                   ));
-            },
-            separatorBuilder: (ctx, index) {
-              return const ListTile(
-                title: Text('2021'),
-              );
             },
             itemCount: 3));
   }
@@ -89,7 +235,7 @@ class _FollowMainScreenState extends State<FollowMainScreen> {
             Container(
               height: 210,
               width: double.infinity,
-              color: Colors.blueGrey.withAlpha(40),
+              color: Color.fromRGBO(233,233,245, 1),
               child: Image.network(
                 'https://joycat.org/images/photoedit/20170922_153626-800x600.jpg',
                 loadingBuilder: (ctx, child, loadingProgress) {
