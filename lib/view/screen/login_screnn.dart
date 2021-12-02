@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:emolife_purchasing/tools/date_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -14,9 +17,24 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   var userEmail = "";
   var userPassword = "";
-
+  var myDate = "2021-12-04T14:30:00";
+  var endDate = "2021-12-05T14:30:00";
+  String data="";
+  late Timer _timer ;
+  @override
+  void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        var myDate = DateTime.now().difference(DateTime(2021,12,02,18,00,00));
+        data= DateTimeUtil.reciprocalTime(myDate.inSeconds);
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
         child: Scaffold(
       body: Center(
@@ -35,8 +53,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(
                 height: 20,
               )),
-              const Text(
-                "咸青",
+              Text(
+                "咸青${data}",
                 style: TextStyle(fontSize: 30),
               ),
               const Flexible(
@@ -190,3 +208,5 @@ class _LoginScreenState extends State<LoginScreen> {
     ));
   }
 }
+
+

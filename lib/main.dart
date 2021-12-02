@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
             primaryColor: Colors.white,
             fontFamily: "SweiGothicCJKtc"),
-        initialRoute: '/follow',
+        initialRoute: '/signIn',
         debugShowCheckedModeBanner: false,
         getPages: [
           GetPage(
