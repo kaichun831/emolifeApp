@@ -39,14 +39,17 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
             platform: TargetPlatform.iOS,
             primarySwatch: Colors.blue,
-            primaryColor: Colors.white),
-        initialRoute: '/userInfo',
+            primaryColor: Colors.white,
+            fontFamily: "SweiGothicCJKtc"),
+        initialRoute: '/follow',
         debugShowCheckedModeBanner: false,
         getPages: [
           GetPage(
               name: '/', page: () => const MainScreen(), binding: EasyBind()),
           GetPage(
-              name: '/follow', page: () => const FollowMainScreen(), binding: EasyBind()),
+              name: '/follow',
+              page: () => const FollowMainScreen(),
+              binding: EasyBind()),
           GetPage(
               name: '/signIn',
               page: () => const LoginScreen(),
@@ -59,7 +62,10 @@ class _MyAppState extends State<MyApp> {
               binding: EasyBind()),
           GetPage(
               name: '/edit_cart', page: () => CartView(), binding: EasyBind()),
-          GetPage(name: '/userInfo', page: () => UserInfoScreen(), binding: EasyBind())
+          GetPage(
+              name: '/userInfo',
+              page: () => UserInfoScreen(),
+              binding: EasyBind())
         ]);
   }
 }

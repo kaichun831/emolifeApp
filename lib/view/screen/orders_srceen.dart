@@ -6,130 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
-List<Map<String, dynamic>> fakeData = [
-  {
-    "OrderInfo": {
-      "IssueNo": "ISS20211125001",
-      "IssueCreateTime": "2022-01-01",
-      "IssueEndTime": "2022-01-04",
-      "OrderId": "00001",
-      "OrderNo": "ORD202111240001",
-      "OrderType": 1,
-    },
-    "GroupLeaderInfo": {
-      "Name": "",
-      "Email": "",
-      "Score": 4.5,
-      "CreateTimes": 3
-    },
-    "OrderData": [
-      {
-        "GoodsName": "商品A",
-        "GoodsCount": 2,
-        "GoodsColor": "黑色",
-        "GoodsPrice": 600,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品C",
-        "GoodsCount": 2,
-        "GoodsColor": "粉色",
-        "GoodsPrice": 300,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品E",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品K",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      },
-      {
-        "GoodsName": "商品D",
-        "GoodsCount": 4,
-        "GoodsColor": "綠色",
-        "GoodsPrice": 100,
-        "GoodsDescription":
-        "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-      }
-    ]
-  },
-];
+import '../../constans.dart';
 
 List<OrdersModel> models = [];
 
@@ -216,22 +93,10 @@ class YetOfOrders extends StatefulWidget {
 
 class _YetOfOrdersState extends State<YetOfOrders> {
   final ScrollController _scrollController = ScrollController();
-
   @override
   void initState() {
     super.initState();
-    models.clear();
-    for (int i = 0; i < fakeData.length; i++) {
-      OrderInfo? info = OrderInfo().fromMap(fakeData[i]['OrderInfo']);
-      List<OrderData> listData = [];
-      for (int x = 0; x < fakeData[i]['OrderData'].length; x++) {
-        OrderData data = OrderData().fromMap(fakeData[i]['OrderData'][x]);
-        listData.add(data);
-      }
-      OrdersModel ordersModel =
-      OrdersModel(orderInfo: info, orderData: listData);
-      models.add(ordersModel);
-    }
+    models = Constans.getFakeModels();
     _scrollController.addListener(() {
       // print(_scrollController.position);
     });

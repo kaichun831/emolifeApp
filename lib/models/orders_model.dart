@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// IssueNo : "ISS20211125001"
-/// IssueCreateTime : "2022-01-01"
-/// IssueEndTime : "2022-01-03"
-/// OrderId : "00001"
-/// OrderNo : "ORD202111250001"
-/// OrderType : 1
-
 class OrdersModel {
   OrderInfo? orderInfo;
+  GroupLeaderInfo? leaderInfo;
   List<OrderData>? orderData;
-    OrdersModel({Key?key,required this.orderInfo,required this.orderData});
+  OrdersModel({Key?key,required this.orderInfo,required this.leaderInfo,required this.orderData,});
 }
 
 class OrderInfo{
@@ -19,6 +13,7 @@ class OrderInfo{
   String IssueEndTime="";
   String OrderId="";
   String OrderNo="";
+  String OrderName ="";
   int OrderType=0;
 
   OrderInfo? fromMap(Map<String, dynamic> map) {
@@ -29,6 +24,7 @@ class OrderInfo{
     ordersInfoBean.OrderId = map['OrderId'];
     ordersInfoBean.OrderNo = map['OrderNo'];
     ordersInfoBean.OrderType = map['OrderType'];
+    ordersInfoBean.OrderName = map['OrderName'];
     return ordersInfoBean;
   }
 
@@ -38,6 +34,7 @@ class OrderInfo{
     "IssueEndTime": IssueEndTime,
     "OrderId": OrderId,
     "OrderNo": OrderNo,
+    "OrderName":OrderName,
     "OrderType": OrderType,
   };
 }
@@ -47,6 +44,7 @@ class OrderData{
   late String GoodsColor;
   late int GoodsPrice;
   late String GoodsDescription;
+  late String GoodUrl;
   int buyCount = 0;
 
   OrderData fromMap(Map<String, dynamic> map) {
@@ -56,6 +54,7 @@ class OrderData{
     orderDataBean.GoodsColor = map['GoodsColor'];
     orderDataBean.GoodsPrice =map['GoodsPrice'];
     orderDataBean.GoodsDescription =map['GoodsDescription'];
+    orderDataBean.GoodUrl = map['GoodUrl'];
     return orderDataBean;
   }
   Map toJson() => {
@@ -64,5 +63,76 @@ class OrderData{
     "GoodsColor": GoodsColor,
     "GoodsPrice": GoodsPrice,
     "GoodsDescription": GoodsDescription,
+    "GoodUrl":GoodUrl
   };
 }
+
+class GroupLeaderInfo {
+  String Name="";
+  String Email="";
+  String About="";
+  int FollowCount=0;
+  double Score=0;
+  int CreateTimes=0;
+  String ImgUrl ="";
+  List<GroupProcessingBean> OrderInfos=[];
+  GroupLeaderInfo fromMap(Map<String, dynamic> map) {
+    GroupLeaderInfo gGroupLeaderInfoBean = GroupLeaderInfo();
+    gGroupLeaderInfoBean.Name = map['Name'];
+    gGroupLeaderInfoBean.Email = map['Email'];
+    gGroupLeaderInfoBean.About = map['About'];
+    gGroupLeaderInfoBean.FollowCount = map['FollowCount'];
+    gGroupLeaderInfoBean.Score = map['Score'];
+    gGroupLeaderInfoBean.CreateTimes = map['CreateTimes'];
+    gGroupLeaderInfoBean.ImgUrl=map['ImgUrl'];
+    gGroupLeaderInfoBean.OrderInfos = [...(map['GroupProcessing'] as List).map((o) => GroupProcessingBean.fromMap(o))];
+    return gGroupLeaderInfoBean;
+  }
+  Map toJson() => {
+    "Name": Name,
+    "Email": Email,
+    "About": About,
+    "FollowCount": FollowCount,
+    "Score": Score,
+    "CreateTimes": CreateTimes,
+    "ImgUrl":ImgUrl,
+    "GroupProcessing": OrderInfos,
+  };
+}
+class GroupProcessingBean {
+  String IssueNo="";
+  String IssueCreateTime="";
+  String IssueEndTime="";
+  String OrderId="";
+  String OrderNo="";
+  String OrderName="";
+  int OrderType=0;
+
+  static GroupProcessingBean fromMap(Map<String, dynamic> map) {
+    GroupProcessingBean groupProcessingBean = GroupProcessingBean();
+    groupProcessingBean.IssueNo = map['IssueNo'];
+    groupProcessingBean.IssueCreateTime = map['IssueCreateTime'];
+    groupProcessingBean.IssueEndTime = map['IssueEndTime'];
+    groupProcessingBean.OrderId = map['OrderId'];
+    groupProcessingBean.OrderNo = map['OrderNo'];
+    groupProcessingBean.OrderName = map['OrderName'];
+    groupProcessingBean.OrderType = map['OrderType'];
+    return groupProcessingBean;
+  }
+
+  Map toJson() => {
+    "IssueNo": IssueNo,
+    "IssueCreateTime": IssueCreateTime,
+    "IssueEndTime": IssueEndTime,
+    "OrderId": OrderId,
+    "OrderNo": OrderNo,
+    "OrderName": OrderName,
+    "OrderType": OrderType,
+  };
+}
+
+
+
+
+
+
