@@ -46,6 +46,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (ctx, index) {
                         return Image.network(
+
                           _models.first.orderData![index].GoodUrl,
                           loadingBuilder: (ctx, child, loadingProgress) {
                             if (loadingProgress == null) return child;
@@ -57,6 +58,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                   : null,
                             ));
                           },
+                          fit:BoxFit.cover,
                         );
                       })),
               Positioned(
@@ -251,6 +253,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                                         : null,
                                                   ));
                                                 },
+                                                fit: BoxFit.cover,
                                               ),
                                               onTap: () {
                                                 _pageController.animateToPage(
