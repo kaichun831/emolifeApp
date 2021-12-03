@@ -85,7 +85,7 @@ class Constans {
       "OrderInfo": {
         "IssueNo": "ISS20211125001",
         "IssueCreateTime": "2022-01-01",
-        "IssueEndTime": "2022-01-04",
+        "IssueEndTime": "2021-12-03 09:00:00",
         "OrderId": "00001",
         "OrderNo": "ORD202111240001",
         "OrderName": "10件實用廚房小物 揪團一起購",
@@ -233,7 +233,7 @@ class Constans {
       "OrderInfo": {
         "IssueNo": "ISS20211125001",
         "IssueCreateTime": "2022-01-01",
-        "IssueEndTime": "2022-01-04",
+        "IssueEndTime": "2021-12-04 00:00:00",
         "OrderId": "00001",
         "OrderNo": "ORD202111240001",
         "OrderName": "30 揪團一起購",

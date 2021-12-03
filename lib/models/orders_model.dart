@@ -15,6 +15,7 @@ class OrderInfo{
   String OrderNo="";
   String OrderName ="";
   int OrderType=0;
+  String reciprocalTime = "";
 
   OrderInfo? fromMap(Map<String, dynamic> map) {
     OrderInfo ordersInfoBean = OrderInfo();

@@ -1,6 +1,6 @@
-import 'package:emolife_purchasing/models/orders_model.dart';
-import 'package:emolife_purchasing/view/single/edit_carts_view.dart';
-import 'package:emolife_purchasing/view/widget/drawer_bar.dart';
+import 'package:emolife/models/orders_model.dart';
+import 'package:emolife/view/single/edit_carts_view.dart';
+import 'package:emolife/view/widget/drawer_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -123,11 +123,9 @@ class _YetOfOrdersState extends State<YetOfOrders> {
       BuildContext context, OrdersModel dataObject, int position) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 200,
-        child: Card(
+      child: Card(
             elevation: 15,
-            child: Column(
+            child:Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(
@@ -234,7 +232,7 @@ class _YetOfOrdersState extends State<YetOfOrders> {
                           );
                         })
               ],
-            )),
+            ),
       ),
     );
   }

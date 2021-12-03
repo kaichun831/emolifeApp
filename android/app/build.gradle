@@ -43,7 +43,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.asuscomm.dylanwalkha.app.emolife_purchasing.emolife_purchasing"
+        applicationId "com.asuscomm.dylanwalkha.app.emolife"
         minSdkVersion 16
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()

@@ -1,10 +1,11 @@
-import 'package:emolife_purchasing/view/screen/goods_screen.dart';
-import 'package:emolife_purchasing/view/screen/login_screnn.dart';
-import 'package:emolife_purchasing/view/screen/orders_srceen.dart';
-import 'package:emolife_purchasing/view/single/edit_carts_view.dart';
+import 'package:emolife/view/screen/goods_screen.dart';
+import 'package:emolife/view/screen/login_screnn.dart';
+import 'package:emolife/view/screen/orders_srceen.dart';
+import 'package:emolife/view/single/edit_carts_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:url_strategy/url_strategy.dart';
 
 import 'Constans.dart';
 import 'controller/cart_view_controller.dart';
@@ -13,6 +14,7 @@ import 'view/screen/follow_main_screen.dart';
 import 'view/screen/main_screen.dart';
 
 void main() {
+  setPathUrlStrategy();
   runApp(const MyApp());
 }
 
@@ -41,7 +43,7 @@ class _MyAppState extends State<MyApp> {
             primarySwatch: Colors.blue,
             primaryColor: Colors.white,
             fontFamily: "SweiGothicCJKtc"),
-        initialRoute: '/signIn',
+        initialRoute: '/follow',
         debugShowCheckedModeBanner: false,
         getPages: [
           GetPage(

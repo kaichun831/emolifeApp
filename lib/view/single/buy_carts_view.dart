@@ -1,14 +1,16 @@
-import 'package:emolife_purchasing/constans.dart';
-import 'package:emolife_purchasing/models/orders_model.dart';
-import 'package:emolife_purchasing/tools/color_tools.dart';
+import 'dart:async';
+
+import 'package:emolife/models/orders_model.dart';
+import 'package:emolife/tools/color_tools.dart';
+import 'package:emolife/tools/date_tools.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-List<OrdersModel> _models = [];
-
 class BuyCartsView extends StatefulWidget {
-  const BuyCartsView({Key? key}) : super(key: key);
+  OrdersModel orderModel;
+
+  BuyCartsView({Key? key, required this.orderModel}) : super(key: key);
 
   @override
   State<BuyCartsView> createState() => _BuyCartsViewState();
@@ -18,14 +20,32 @@ class _BuyCartsViewState extends State<BuyCartsView>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
   final PageController _pageController = PageController();
+  late OrdersModel _model;
   int selectedPosition = 0;
-  var fakeData = Constans.fakeData;
+  late Timer _timer;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _models = Constans.getFakeModels();
+    _model = widget.orderModel;
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        var myDate = DateTime.now()
+            .difference(DateTime.parse(_model.orderInfo!.IssueEndTime));
+        _model.orderInfo!.reciprocalTime =
+            DateTimeUtil.reciprocalTime(myDate.inSeconds);
+        if (_model.orderInfo!.reciprocalTime == "已截止") {
+          _timer.cancel();
+        }
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -42,12 +62,11 @@ class _BuyCartsViewState extends State<BuyCartsView>
                   width: MediaQuery.of(context).size.width,
                   child: PageView.builder(
                       controller: _pageController,
-                      itemCount: _models.first.orderData!.length,
+                      itemCount: _model.orderData!.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (ctx, index) {
                         return Image.network(
-
-                          _models.first.orderData![index].GoodUrl,
+                          _model.orderData![index].GoodUrl,
                           loadingBuilder: (ctx, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
@@ -58,7 +77,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                   : null,
                             ));
                           },
-                          fit:BoxFit.cover,
+                          fit: BoxFit.cover,
                         );
                       })),
               Positioned(
@@ -94,7 +113,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _models.first.orderInfo!.OrderName,
+                  _model.orderInfo!.OrderName,
                   style: const TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),
@@ -102,7 +121,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "ID:${_models.first.orderInfo!.OrderNo}",
+                      "ID:${_model.orderInfo!.OrderNo}",
                       style: TextStyle(color: ColorUtil.mainBlueColor()),
                     ),
                     IconButton(
@@ -126,17 +145,19 @@ class _BuyCartsViewState extends State<BuyCartsView>
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.access_time_rounded,
-                          color: ColorUtil.mainRedColor(),
-                        ),
+                        Icon(Icons.access_time_rounded,
+                            color: ColorUtil.mainRedColor()),
                         Expanded(
-                            child: Text(
-                          '截止日2021/11/31 倒數: 20天11小時35分',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: ColorUtil.mainRedColor(),
+                            child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            '截止日${_model.orderInfo!.IssueEndTime} \n${_model.orderInfo!.reciprocalTime}',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: ColorUtil.mainRedColor(),
+                            ),
                           ),
                         )),
                       ],
@@ -218,7 +239,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                             padding: EdgeInsets.only(
                                 bottom:
                                     MediaQuery.of(context).size.height / 12),
-                            itemCount: _models.first.orderData!.length,
+                            itemCount: _model.orderData!.length,
                             itemBuilder: (ctx, index) {
                               return Row(
                                 children: [
@@ -234,8 +255,8 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                                 Colors.blueGrey.withAlpha(70),
                                             child: GestureDetector(
                                               child: Image.network(
-                                                _models.first.orderData![index]
-                                                    .GoodUrl,
+                                                _model
+                                                    .orderData![index].GoodUrl,
                                                 loadingBuilder: (ctx, child,
                                                     loadingProgress) {
                                                   if (loadingProgress == null)
@@ -271,21 +292,21 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _models.first.orderData![index]
-                                                  .GoodsName,
+                                              _model
+                                                  .orderData![index].GoodsName,
                                               style:
                                                   const TextStyle(fontSize: 16),
                                             ),
                                             Row(
                                               children: [
                                                 Text(
-                                                  "規格 : ${_models.first.orderData![index].GoodsColor}",
+                                                  "規格 : ${_model.orderData![index].GoodsColor}",
                                                   style: const TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.grey),
                                                 ),
                                                 Text(
-                                                  "   NT\$ ${_models.first.orderData![index].GoodsPrice}",
+                                                  "   NT\$ ${_model.orderData![index].GoodsPrice}",
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       color: ColorUtil
@@ -303,17 +324,17 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            if (_models.first.orderData![index]
+                                            if (_model.orderData![index]
                                                     .buyCount >
                                                 0) {
-                                              _models.first.orderData![index]
-                                                  .buyCount--;
+                                              _model
+                                                  .orderData![index].buyCount--;
                                             }
                                           });
                                         },
                                         child: Icon(
                                           Icons.remove_circle_outline_outlined,
-                                          color: _models.first.orderData![index]
+                                          color: _model.orderData![index]
                                                       .buyCount >
                                                   0
                                               ? const Color.fromRGBO(
@@ -324,20 +345,19 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Text(
-                                          "${_models.first.orderData![index].buyCount}",
+                                          "${_model.orderData![index].buyCount}",
                                           style: const TextStyle(fontSize: 20),
                                         ),
                                       ),
                                       GestureDetector(
                                         onTap: () {
                                           setState(() {
-                                            _models.first.orderData![index]
-                                                .buyCount++;
+                                            _model.orderData![index].buyCount++;
                                           });
                                         },
                                         child: Icon(
                                           Icons.add_circle_outline_rounded,
-                                          color: _models.first.orderData![index]
+                                          color: _model.orderData![index]
                                                       .buyCount >
                                                   0
                                               ? const Color.fromRGBO(
@@ -350,28 +370,28 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                 ],
                               );
                             }))))),
-        getAddCount()?
-        Positioned(
-            bottom: 10,
-            left: 0,
-            right: 0,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20.0, right: 20),
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                    fixedSize: Size(
-                        MediaQuery.of(context).size.width / 2,
-                        MediaQuery.of(context).size.height / 15),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8.0)),
-                    primary: ColorUtil.mainRedColor()),
-                child: const Text(
-                  "我要參團",
-                  style: TextStyle(fontSize: 20),
-                ),
-              ),
-            )):const SizedBox()
+        getAddCount()
+            ? Positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                        fixedSize: Size(MediaQuery.of(context).size.width / 2,
+                            MediaQuery.of(context).size.height / 15),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0)),
+                        primary: ColorUtil.mainRedColor()),
+                    child: const Text(
+                      "我要參團",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                ))
+            : const SizedBox()
       ],
     );
   }
@@ -401,7 +421,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                     ListView.separated(
                       padding: EdgeInsets.only(
                           bottom: MediaQuery.of(context).size.height / 12),
-                      itemCount: _models.first.orderData!.length,
+                      itemCount: _model.orderData!.length,
                       itemBuilder: (ctx, index) {
                         return _singleGoodItem(index);
                       },
@@ -412,28 +432,32 @@ class _BuyCartsViewState extends State<BuyCartsView>
                         );
                       },
                     ),
-                    getAddCount()?
-                    Positioned(
-                        bottom: 10,
-                        left: 0,
-                        right: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 20.0, right: 20),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                fixedSize: Size(
-                                    MediaQuery.of(context).size.width / 2,
-                                    MediaQuery.of(context).size.height / 15),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0)),
-                                primary: ColorUtil.mainRedColor()),
-                            child: const Text(
-                              "我要參團",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                          ),
-                        )):const SizedBox()
+                    getAddCount()
+                        ? Positioned(
+                            bottom: 10,
+                            left: 0,
+                            right: 0,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 20.0, right: 20),
+                              child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    fixedSize: Size(
+                                        MediaQuery.of(context).size.width / 2,
+                                        MediaQuery.of(context).size.height /
+                                            15),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(8.0)),
+                                    primary: ColorUtil.mainRedColor()),
+                                child: const Text(
+                                  "我要參團",
+                                  style: TextStyle(fontSize: 20),
+                                ),
+                              ),
+                            ))
+                        : const SizedBox()
                   ],
                 )))));
   }
@@ -460,18 +484,28 @@ class _BuyCartsViewState extends State<BuyCartsView>
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(300),
-              child: Image.asset(
-                'images/goods.png',
+              child: Image.network(
+                _model.leaderInfo!.ImgUrl,
+                loadingBuilder: (ctx, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                      child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ));
+                },
+                width: MediaQuery.of(context).size.width / 3,
+                height: MediaQuery.of(context).size.width / 3,
                 fit: BoxFit.cover,
-                height: 144,
-                width: 144,
               ),
             ),
             const SizedBox(
               height: 5,
             ),
             Text(
-              _models.first.leaderInfo!.Name,
+              _model.leaderInfo!.Name,
               style: TextStyle(color: Colors.black, fontSize: 21),
             ),
             ElevatedButton(
@@ -499,7 +533,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(_models.first.leaderInfo!.Score.toString(),
+                        Text(_model.leaderInfo!.Score.toString(),
                             style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -523,7 +557,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                     const SizedBox(
                       height: 3,
                     ),
-                    Text(_models.first.leaderInfo!.CreateTimes.toString(),
+                    Text(_model.leaderInfo!.CreateTimes.toString(),
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -540,7 +574,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                     const SizedBox(
                       height: 3,
                     ),
-                    Text(_models.first.leaderInfo!.FollowCount.toString(),
+                    Text(_model.leaderInfo!.FollowCount.toString(),
                         style: const TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -569,7 +603,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                 padding: const EdgeInsets.symmetric(horizontal: 40),
                 child: Align(
                   alignment: Alignment.topLeft,
-                  child: Text(_models.first.leaderInfo!.About,
+                  child: Text(_model.leaderInfo!.About,
                       style: const TextStyle(
                           color: Colors.black,
                           fontSize: 12,
@@ -595,8 +629,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
                     child: Scrollbar(
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount:
-                                _models.first.leaderInfo!.OrderInfos.length,
+                            itemCount: _model.leaderInfo!.OrderInfos.length,
                             itemBuilder: (ctx, index) {
                               return Row(
                                 children: [
@@ -647,13 +680,13 @@ class _BuyCartsViewState extends State<BuyCartsView>
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _models.first.leaderInfo!
+                                              _model.leaderInfo!
                                                   .OrderInfos[index].OrderName,
                                               style:
                                                   const TextStyle(fontSize: 16),
                                             ),
                                             Text(
-                                              "截止日期:${_models.first.leaderInfo!.OrderInfos[index].IssueEndTime}",
+                                              "截止日期:${_model.leaderInfo!.OrderInfos[index].IssueEndTime}",
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   color:
@@ -672,6 +705,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
       ),
     );
   }
+
   Widget _singleGoodItem(int position) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -681,7 +715,7 @@ class _BuyCartsViewState extends State<BuyCartsView>
           SizedBox(
             width: double.infinity,
             child: Image.network(
-              _models.first.orderData![position].GoodUrl,
+              _model.orderData![position].GoodUrl,
               loadingBuilder: (ctx, child, loadingProgress) {
                 if (loadingProgress == null) return child;
                 return Center(
@@ -709,14 +743,14 @@ class _BuyCartsViewState extends State<BuyCartsView>
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        if (_models.first.orderData![position].buyCount > 0) {
-                          _models.first.orderData![position].buyCount--;
+                        if (_model.orderData![position].buyCount > 0) {
+                          _model.orderData![position].buyCount--;
                         }
                       });
                     },
                     child: Icon(
                       Icons.remove_circle_outline_outlined,
-                      color: _models.first.orderData![position].buyCount > 0
+                      color: _model.orderData![position].buyCount > 0
                           ? const Color.fromRGBO(249, 128, 128, 1)
                           : Colors.grey,
                     ),
@@ -724,19 +758,19 @@ class _BuyCartsViewState extends State<BuyCartsView>
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "${_models.first.orderData![position].buyCount}",
+                      "${_model.orderData![position].buyCount}",
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
                   GestureDetector(
                     onTap: () {
                       setState(() {
-                        _models.first.orderData![position].buyCount++;
+                        _model.orderData![position].buyCount++;
                       });
                     },
                     child: Icon(
                       Icons.add_circle_outline_rounded,
-                      color: _models.first.orderData![position].buyCount > 0
+                      color: _model.orderData![position].buyCount > 0
                           ? const Color.fromRGBO(249, 128, 128, 1)
                           : Colors.grey,
                     ),
@@ -746,16 +780,16 @@ class _BuyCartsViewState extends State<BuyCartsView>
             ],
           ),
           Text(
-            _models.first.orderData![position].GoodsName,
+            _model.orderData![position].GoodsName,
             style: const TextStyle(color: Colors.black, fontSize: 20),
           ),
           RichText(
               text: TextSpan(children: [
             TextSpan(
-                text: "規格-${_models.first.orderData![position].GoodsColor}",
+                text: "規格-${_model.orderData![position].GoodsColor}",
                 style: const TextStyle(color: Colors.grey, fontSize: 14)),
             TextSpan(
-                text: "   NT\$${_models.first.orderData![position].GoodsPrice}",
+                text: "   NT\$${_model.orderData![position].GoodsPrice}",
                 style: const TextStyle(
                     color: Color.fromRGBO(249, 128, 128, 1), fontSize: 14))
           ])),
@@ -763,16 +797,17 @@ class _BuyCartsViewState extends State<BuyCartsView>
             height: 5,
           ),
           Text(
-            _models.first.orderData![position].GoodsDescription,
+            _model.orderData![position].GoodsDescription,
             style: const TextStyle(color: Colors.black54, fontSize: 14),
           ),
         ],
       ),
     );
   }
-  bool getAddCount(){
-    for(var i =0;i<_models.first.orderData!.length;i++){
-      if(_models.first.orderData![i].buyCount>0){
+
+  bool getAddCount() {
+    for (var i = 0; i < _model.orderData!.length; i++) {
+      if (_model.orderData![i].buyCount > 0) {
         return true;
       }
     }

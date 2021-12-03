@@ -1,12 +1,12 @@
-import 'package:emolife_purchasing/controller/cart_view_controller.dart';
-import 'package:emolife_purchasing/models/orders_model.dart';
+import 'package:emolife/controller/cart_view_controller.dart';
+import 'package:emolife/models/orders_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../constans.dart';
 
 class CartView extends StatefulWidget {
-  CartView({Key? key}) : super(key: key);
+  const CartView({Key? key}) : super(key: key);
 
   @override
   State<CartView> createState() => _CartViewState();
@@ -31,25 +31,27 @@ class _CartViewState extends State<CartView> {
         child: Column(
           children: [
             getTitleWidget(_controller.getOrderInfo()),
-            ListView.separated(
+            Expanded(child: ListView.separated(
                 shrinkWrap: true,
                 itemBuilder: (ctx, index) {
                   return Dismissible(
-                      background:Container(color: Colors.blue,child:
-                          const Align(alignment:Alignment.centerLeft, child: Icon(Icons.arrow_forward_ios_sharp),)
-                      ),
-                      secondaryBackground:Container(color: Colors.red,child:
-                          const Align(alignment:Alignment.centerRight, child:Icon(Icons.delete),)
-                      ) ,
-                      onDismissed: (DismissDirection  direction){
-                        if(direction ==DismissDirection.endToStart){
+                      background: Container(
+                          color: Colors.blue,
+                          child: const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Icon(Icons.arrow_forward_ios_sharp),
+                          )),
+                      secondaryBackground: Container(
+                          color: Colors.red,
+                          child: const Align(
+                            alignment: Alignment.centerRight,
+                            child: Icon(Icons.delete),
+                          )),
+                      onDismissed: (DismissDirection direction) {
+                        if (direction == DismissDirection.endToStart) {
                           _controller.removeOrderDataByPosition(index);
-                        }else{
-
-                        }
-                        setState(() {
-
-                        });
+                        } else {}
+                        setState(() {});
                       },
                       key: UniqueKey(),
                       child: Padding(
@@ -111,7 +113,7 @@ class _CartViewState extends State<CartView> {
                     thickness: 1,
                   );
                 },
-                itemCount: _controller.getOrderData()!.length),
+                itemCount: _controller.getOrderData()!.length),)
           ],
         ),
       ),

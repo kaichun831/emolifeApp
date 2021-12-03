@@ -1,4 +1,4 @@
-import 'package:emolife_purchasing/models/orders_model.dart';
+import 'package:emolife/models/orders_model.dart';
 import 'package:get/get.dart';
 
 class CartViewController extends GetxController{

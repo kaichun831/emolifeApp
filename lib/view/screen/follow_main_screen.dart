@@ -1,7 +1,10 @@
-import 'package:emolife_purchasing/models/orders_model.dart';
-import 'package:emolife_purchasing/tools/color_tools.dart';
-import 'package:emolife_purchasing/view/single/buy_carts_view.dart';
-import 'package:emolife_purchasing/view/widget/drawer_bar.dart';
+import 'dart:async';
+
+import 'package:emolife/models/orders_model.dart';
+import 'package:emolife/tools/color_tools.dart';
+import 'package:emolife/tools/date_tools.dart';
+import 'package:emolife/view/single/buy_carts_view.dart';
+import 'package:emolife/view/widget/drawer_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
@@ -17,16 +20,25 @@ class FollowMainScreen extends StatefulWidget {
   State<FollowMainScreen> createState() => _FollowMainScreenState();
 }
 
-class _FollowMainScreenState extends State<FollowMainScreen> {
+class _FollowMainScreenState extends State<FollowMainScreen>{
   var isHasNotification = true;
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var fakeData = Constans.fakeData;
-
+  late Timer _timer ;
   @override
   void initState() {
     super.initState();
     models = Constans.getFakeModels();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        for (var element in models) {
+          var myDate = DateTime.now().difference(DateTime.parse(element.orderInfo!.IssueEndTime));
+          element.orderInfo!.reciprocalTime =DateTimeUtil.reciprocalTime(myDate.inSeconds);
+        }
+      });
+    });
   }
+
   AppBar _appBar() {
     return AppBar(
         actions: [
@@ -86,7 +98,7 @@ class _FollowMainScreenState extends State<FollowMainScreen> {
                       child: GestureDetector(
                         child: _groupItem(models[index]),
                         onTap: () => {
-                          Get.to(BuyCartsView(), arguments: [models])
+                          Get.to(BuyCartsView(orderModel: models[index],))
                         },
                       )));
             },
@@ -181,14 +193,16 @@ class _FollowMainScreenState extends State<FollowMainScreen> {
           child:
       Container(
         color: ColorUtil.mainRedColor(),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+        child:  Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
           child: Text(
-            "倒數31天又5小時",
-            style: TextStyle(color: Colors.white),
+            model.orderInfo!.reciprocalTime,
+            style: const TextStyle(color: Colors.white),
           ),
         ),
       ))
     ]);
   }
+
+
 }

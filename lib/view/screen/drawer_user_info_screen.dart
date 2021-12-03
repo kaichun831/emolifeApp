@@ -1,5 +1,5 @@
-import 'package:emolife_purchasing/tools/color_tools.dart';
-import 'package:emolife_purchasing/view/widget/drawer_bar.dart';
+import 'package:emolife/tools/color_tools.dart';
+import 'package:emolife/view/widget/drawer_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
