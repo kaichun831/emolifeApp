@@ -7,6 +7,7 @@ import 'package:emolife/view/single/buy_carts_view.dart';
 import 'package:emolife/view/widget/drawer_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../constans.dart';
@@ -204,5 +205,9 @@ class _FollowMainScreenState extends State<FollowMainScreen>{
     ]);
   }
 
-
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
+  }
 }

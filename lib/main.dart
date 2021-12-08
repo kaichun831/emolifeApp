@@ -1,15 +1,17 @@
+import 'package:emolife/tools/color_tools.dart';
 import 'package:emolife/view/screen/goods_screen.dart';
-import 'package:emolife/view/screen/login_screnn.dart';
-import 'package:emolife/view/screen/orders_srceen.dart';
+import 'package:emolife/view/screen/login_screen.dart';
+import 'package:emolife/view/single/drawer_orders_srceen.dart';
 import 'package:emolife/view/single/edit_carts_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'Constans.dart';
 import 'controller/cart_view_controller.dart';
-import 'view/screen/drawer_user_info_screen.dart';
+import 'view/single/drawer_user_info_screen.dart';
 import 'view/screen/follow_main_screen.dart';
 import 'view/screen/main_screen.dart';
 
@@ -28,17 +30,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
+  void initState(){
     super.initState();
-    MyApp.appContext = context;
-    Constans.instance();
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+
+        statusBarColor:Colors.white.withAlpha(0),/* set Status bar color in Android devices. */
+
+        statusBarIconBrightness: Brightness.dark,/* set Status bar icons color in Android devices.*/
+
+        statusBarBrightness: Brightness.dark)/* set Status bar icon color in iOS. */
+    );
     return GetMaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          appBarTheme:AppBarTheme(color: Colors.white.withAlpha(0),elevation: 0,iconTheme:IconThemeData(color: Colors.black)),
             platform: TargetPlatform.iOS,
             primarySwatch: Colors.blue,
             primaryColor: Colors.white,
@@ -66,7 +75,7 @@ class _MyAppState extends State<MyApp> {
               name: '/edit_cart', page: () => CartView(), binding: EasyBind()),
           GetPage(
               name: '/userInfo',
-              page: () => UserInfoScreen(),
+              page: () => const UserInfoScreen(),
               binding: EasyBind())
         ]);
   }

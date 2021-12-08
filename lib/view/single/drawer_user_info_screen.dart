@@ -1,6 +1,6 @@
 import 'package:emolife/tools/color_tools.dart';
-import 'package:emolife/view/widget/drawer_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class UserInfoScreen extends StatefulWidget {
@@ -36,185 +36,196 @@ class _UserInfoScreenState extends State<UserInfoScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        key: scaffoldKey,
-        drawer: const CusDrawerBar(),
-        appBar: _appBar(),
-        body: Stack(
-          children: [
-            SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 30.0, right: 30),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            key: scaffoldKey,
+            appBar: AppBar(
+
+            ),
+            body: Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30.0,
+                      right: 30,
+                    ),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              const Text('預扣點數'),
-                              const Text(
-                                '199',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 25),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text('預扣點數'),
+                                  const Text(
+                                    '199',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25),
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('查看'),
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          primary: ColorUtil.mainRedColor()))
+                                ],
                               ),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('查看'),
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      primary: ColorUtil.mainRedColor()))
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(300),
+                                  child: Image.asset(
+                                    'images/goods.png',
+                                    fit: BoxFit.cover,
+                                    height:
+                                        MediaQuery.of(context).size.width / 3,
+                                    width:
+                                        MediaQuery.of(context).size.width / 3,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Text('點數餘額'),
+                                  const Text(
+                                    '899',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 25),
+                                  ),
+                                  ElevatedButton(
+                                      onPressed: () {},
+                                      child: const Text('儲值'),
+                                      style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0)),
+                                          primary: ColorUtil.mainOrangeColor()))
+                                ],
+                              ),
                             ],
                           ),
+                          const Text(
+                            '阿團',
+                            style: TextStyle(
+                                color: const Color.fromRGBO(101, 108, 238, 1),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: const [
+                              Text("用戶姓名:王阿團"),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Text("聯絡電話:0968-123456"),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Text("電子信箱:kaichun831@gmail.com"),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Text("生日:1993/08/31")
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                setState(() {
+                                  _settingUserInfo();
+                                });
+                              },
+                              child: const Text('編輯基本資訊'),
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12.0)),
+                                  primary: ColorUtil.mainBlueColor())),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Column(
+                            children: const [
+                              Text("預設店到店:薰衣草門市 7-11"),
+                              SizedBox(
+                                height: 2,
+                              ),
+                              Text("可交易地區:台中市"),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                _settingAddressInfo();
+                              },
+                              child: const Text('變更交易資訊'),
+                              style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(12.0)),
+                                  primary: ColorUtil.mainBlueColor())),
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(300),
-                              child: Image.asset(
-                                'images/goods.png',
-                                fit: BoxFit.cover,
-                                height: MediaQuery.of(context).size.width / 3,
-                                width: MediaQuery.of(context).size.width / 3,
-                              ),
+                            padding:
+                                const EdgeInsets.only(left: 50, right: 50.0),
+                            child: TabBar(
+                                controller: _tabController,
+                                labelColor: Colors.black,
+                                indicator: const UnderlineTabIndicator(
+                                  borderSide: BorderSide(
+                                      width: 3.0,
+                                      color: Color.fromRGBO(248, 110, 110, 1)),
+                                  insets: EdgeInsets.symmetric(horizontal: 80),
+                                ),
+                                unselectedLabelColor: Colors.grey,
+                                tabs: const [
+                                  Tab(
+                                    child: Text("開團"),
+                                  ),
+                                  Tab(
+                                    child: Text("跟團"),
+                                  ),
+                                ]),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Divider(
+                            height: 1,
+                            thickness: 1.5,
+                          ),
+                          SizedBox(
+                            height: 580,
+                            width: MediaQuery.of(context).size.width,
+                            child: TabBarView(
+                              controller: _tabController,
+                              children: [
+                                StartGroupView(),
+                                FlowGroupView(),
+                              ],
                             ),
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const Text('點數餘額'),
-                              const Text(
-                                '899',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 25),
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {},
-                                  child: const Text('儲值'),
-                                  style: ElevatedButton.styleFrom(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.0)),
-                                      primary: ColorUtil.mainOrangeColor()))
-                            ],
-                          ),
+                          // buildDragWidget()
                         ],
                       ),
-                      const Text(
-                        '阿團',
-                        style: TextStyle(
-                            color: const Color.fromRGBO(101, 108, 238, 1),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        children: const [
-                          Text("用戶姓名:王阿團"),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text("聯絡電話:0968-123456"),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text("電子信箱:kaichun831@gmail.com"),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text("生日:1993/08/31")
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              _settingUserInfo();
-                            });
-                          },
-                          child: const Text('編輯基本資訊'),
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0)),
-                              primary: ColorUtil.mainBlueColor())),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Column(
-                        children: const [
-                          Text("預設店到店:薰衣草門市 7-11"),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text("可交易地區:台中市"),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton(
-                          onPressed: () {
-                            _settingAddressInfo();
-                          },
-                          child: const Text('變更交易資訊'),
-                          style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12.0)),
-                              primary: ColorUtil.mainBlueColor())),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 50, right: 50.0),
-                        child: TabBar(
-                            controller: _tabController,
-                            labelColor: Colors.black,
-                            indicator: const UnderlineTabIndicator(
-                              borderSide: BorderSide(
-                                  width: 3.0,
-                                  color: Color.fromRGBO(248, 110, 110, 1)),
-                              insets: EdgeInsets.symmetric(horizontal: 80),
-                            ),
-                            unselectedLabelColor: Colors.grey,
-                            tabs: const [
-                              Tab(
-                                child: Text("開團"),
-                              ),
-                              Tab(
-                                child: Text("跟團"),
-                              ),
-                            ]),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Divider(
-                        height: 1,
-                        thickness: 1.5,
-                      ),
-                      SizedBox(
-                        height: 580,
-                        width: MediaQuery.of(context).size.width,
-                        child: TabBarView(
-                          controller: _tabController,
-                          children: [
-                            StartGroupView(),
-                            FlowGroupView(),
-                          ],
-                        ),
-                      ),
-                      // buildDragWidget()
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ],
-        ));
+              ],
+            ));
   }
 
   void _settingUserInfo() {
@@ -511,7 +522,7 @@ class _UserInfoScreenState extends State<UserInfoScreen>
                                               CrossAxisAlignment.start,
                                           children: [
                                             SizedBox(
-                                              width:180,
+                                              width: 180,
                                               child: Text(
                                                 "台中地區 新社地區 太平區 台中地區 新社地區 太平區",
                                                 style: TextStyle(fontSize: 16),

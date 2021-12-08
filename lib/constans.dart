@@ -5,29 +5,30 @@ import 'package:package_info/package_info.dart';
 
 import 'models/orders_model.dart';
 
-class Constans {
-  static var BASE_URL = "192.168.0.29:88";
+class  Constans {
+  static var BASE_URL = "192.168.0.29:99";
   static var TOKEN = "";
-  static var APP_VERSION = "";
+  static var APP_VERSION;
   static var APP_NAME = "";
-  static var APP_ID = "";
   static var User = "KG";
+  static var Moblie_ID="";
   static Map<String, String> requestHeaders = {
     'Content-type': 'application/json',
     'Authorization': 'Bearer RF'
   };
 
-  static Future<void> instance() async {
+  static Future<String?> instance() async {
     var myAppInfo = await PackageInfo.fromPlatform();
     var myDeviceInfo = DeviceInfoPlugin();
     APP_NAME = myAppInfo.appName;
     APP_VERSION = myAppInfo.version;
+
     if (Platform.isAndroid) {
       var device = _readAndroidBuildData(await myDeviceInfo.androidInfo);
-      APP_ID = device['androidId'];
+      return  device['androidId'].toString();
     } else if (Platform.isIOS) {
       var device = _readIosDeviceInfo(await myDeviceInfo.iosInfo);
-      APP_ID = device['identifierForVendor'];
+      return   device['identifierForVendor'].toString();
     }
   }
 
@@ -159,9 +160,9 @@ class Constans {
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
         },
         {
           "GoodsName": "商品C",
@@ -169,63 +170,69 @@ class Constans {
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-        },{
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+        },
+        {
           "GoodsName": "商品C",
           "GoodsCount": 2,
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-        },{
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+        },
+        {
           "GoodsName": "商品C",
           "GoodsCount": 2,
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-        },{
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+        },
+        {
           "GoodsName": "商品C",
           "GoodsCount": 2,
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-        },{
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+        },
+        {
           "GoodsName": "商品C",
           "GoodsCount": 2,
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-        },{
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+        },
+        {
           "GoodsName": "商品C",
           "GoodsCount": 2,
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
-        },{
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+        },
+        {
           "GoodsName": "商品C",
           "GoodsCount": 2,
           "GoodsColor": "藍色",
           "GoodsPrice": 500,
           "GoodUrl":
-          "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
+              "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/herschel-starbucks-2021%E8%81%AF%E5%90%8D%E5%95%86%E5%93%81%E6%83%85%E5%A2%83%E5%9C%96-1-1618469231.jpg",
           "GoodsDescription":
-          "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
+              "描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述描述"
         }
       ]
     },
@@ -303,6 +310,7 @@ class Constans {
       ]
     },
   ];
+
   static List<OrdersModel> getFakeModels() {
     List<OrdersModel> _models = [];
     for (int i = 0; i < fakeData.length; i++) {

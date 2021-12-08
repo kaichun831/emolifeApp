@@ -4,6 +4,7 @@ import 'package:emolife/view/widget/drawer_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 import '../../constans.dart';
@@ -39,32 +40,31 @@ class _OrdersScreenState extends State<OrdersScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const CusDrawerBar(),
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(0)),
-              // color: Colors.grey,
+      appBar: AppBar(
+        bottom:TabBar(
+          controller: _tabController,
+          labelColor: Colors.black,
+          indicatorColor: Colors.blue,
+          unselectedLabelColor: Colors.grey,
+          tabs: const [
+            Tab(
+              child: Text("未截止訂單"),
             ),
-            child: TabBar(
-                controller: _tabController,
-                labelColor: Colors.black,
-                indicatorColor: Colors.blue,
-                unselectedLabelColor: Colors.grey,
-                tabs: const [
-                  Tab(
-                    child: Text("未截止訂單"),
-                  ),
-                  Tab(
-                    child: Text("進行中訂單"),
-                  ),
-                  Tab(
-                    child: Text("已完成訂單"),
-                  )
-                ]),
-          ),
+            Tab(
+              child: Text("進行中訂單"),
+            ),
+            Tab(
+              child: Text("已完成訂單"),
+            )
+          ]) ,
+      ),
+      body: Padding(
+    padding: const EdgeInsets.only(
+    left: 30.0,
+    right: 30,
+    ),
+    child: Column(
+        children: [
           Expanded(
               child: TabBarView(
             controller: _tabController,
@@ -78,7 +78,7 @@ class _OrdersScreenState extends State<OrdersScreen>
           )),
         ],
       ),
-    );
+    ));
   }
 }
 
