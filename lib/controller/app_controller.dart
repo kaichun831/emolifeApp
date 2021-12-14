@@ -32,18 +32,9 @@ class AppController extends GetxController {
       var device = _readIosDeviceInfo(await myDeviceInfo.iosInfo);
       Moblie_ID = device['identifierForVendor'].toString();
     }
-
-    // var localStatus = await Permission.camera.status;
-    // if(localStatus.isDenied){
-    //
-    //   log("No permission");
-    // }
-    // IP = await NetworkInfo().getWifiIP();
-
-
+    var  netWorkList =  await NetworkInterface.list();
+    IP =  netWorkList.first.addresses.first.address;
   }
-
-
   static Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {
     return <String, dynamic>{
       'version.securityPatch': build.version.securityPatch,
@@ -92,4 +83,5 @@ class AppController extends GetxController {
       'utsname.machine:': data.utsname.machine,
     };
   }
+
 }

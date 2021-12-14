@@ -21,4 +21,8 @@ class DateTimeUtil{
       return number.toString();
     }
   }
+  static String formatMonthAndDay(String dateStr){
+    var fData = dateStr.substring(5);
+    return fData.replaceAll("-","/");
+  }
 }

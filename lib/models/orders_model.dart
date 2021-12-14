@@ -4,17 +4,23 @@ class OrdersModel {
   OrderInfo? orderInfo;
   GroupLeaderInfo? leaderInfo;
   List<OrderData>? orderData;
-  OrdersModel({Key?key,required this.orderInfo,required this.leaderInfo,required this.orderData,});
+
+  OrdersModel({
+    Key? key,
+    required this.orderInfo,
+    required this.leaderInfo,
+    required this.orderData,
+  });
 }
 
-class OrderInfo{
-  String IssueNo="";
-  String IssueCreateTime="";
-  String IssueEndTime="";
-  String OrderId="";
-  String OrderNo="";
-  String OrderName ="";
-  int OrderType=0;
+class OrderInfo {
+  String IssueNo = "";
+  String IssueCreateTime = "";
+  String IssueEndTime = "";
+  String OrderId = "";
+  String OrderNo = "";
+  String OrderName = "";
+  int OrderType = 0;
   String reciprocalTime = "";
 
   OrderInfo? fromMap(Map<String, dynamic> map) {
@@ -26,20 +32,22 @@ class OrderInfo{
     ordersInfoBean.OrderNo = map['OrderNo'];
     ordersInfoBean.OrderType = map['OrderType'];
     ordersInfoBean.OrderName = map['OrderName'];
+
     return ordersInfoBean;
   }
 
   Map toJson() => {
-    "IssueNo": IssueNo,
-    "IssueCreateTime": IssueCreateTime,
-    "IssueEndTime": IssueEndTime,
-    "OrderId": OrderId,
-    "OrderNo": OrderNo,
-    "OrderName":OrderName,
-    "OrderType": OrderType,
-  };
+        "IssueNo": IssueNo,
+        "IssueCreateTime": IssueCreateTime,
+        "IssueEndTime": IssueEndTime,
+        "OrderId": OrderId,
+        "OrderNo": OrderNo,
+        "OrderName": OrderName,
+        "OrderType": OrderType,
+      };
 }
-class OrderData{
+
+class OrderData {
   late String GoodsName;
   late int GoodsCount;
   late String GoodsColor;
@@ -53,30 +61,33 @@ class OrderData{
     orderDataBean.GoodsName = map['GoodsName'];
     orderDataBean.GoodsCount = map['GoodsCount'];
     orderDataBean.GoodsColor = map['GoodsColor'];
-    orderDataBean.GoodsPrice =map['GoodsPrice'];
-    orderDataBean.GoodsDescription =map['GoodsDescription'];
+    orderDataBean.GoodsPrice = map['GoodsPrice'];
+    orderDataBean.GoodsDescription = map['GoodsDescription'];
     orderDataBean.GoodUrl = map['GoodUrl'];
     return orderDataBean;
   }
+
   Map toJson() => {
-    "GoodsName": GoodsName,
-    "GoodsCount": GoodsCount,
-    "GoodsColor": GoodsColor,
-    "GoodsPrice": GoodsPrice,
-    "GoodsDescription": GoodsDescription,
-    "GoodUrl":GoodUrl
-  };
+        "GoodsName": GoodsName,
+        "GoodsCount": GoodsCount,
+        "GoodsColor": GoodsColor,
+        "GoodsPrice": GoodsPrice,
+        "GoodsDescription": GoodsDescription,
+        "GoodUrl": GoodUrl
+      };
 }
 
 class GroupLeaderInfo {
-  String Name="";
-  String Email="";
-  String About="";
-  int FollowCount=0;
-  double Score=0;
-  int CreateTimes=0;
-  String ImgUrl ="";
-  List<GroupProcessingBean> OrderInfos=[];
+  String Name = "";
+  String Email = "";
+  String About = "";
+  int FollowCount = 0;
+  double Score = 0;
+  int CreateTimes = 0;
+  String ImgUrl = "";
+
+  List<GroupProcessingBean> OrderInfos = [];
+
   GroupLeaderInfo fromMap(Map<String, dynamic> map) {
     GroupLeaderInfo gGroupLeaderInfoBean = GroupLeaderInfo();
     gGroupLeaderInfoBean.Name = map['Name'];
@@ -85,55 +96,80 @@ class GroupLeaderInfo {
     gGroupLeaderInfoBean.FollowCount = map['FollowCount'];
     gGroupLeaderInfoBean.Score = map['Score'];
     gGroupLeaderInfoBean.CreateTimes = map['CreateTimes'];
-    gGroupLeaderInfoBean.ImgUrl=map['ImgUrl'];
-    gGroupLeaderInfoBean.OrderInfos = [...(map['GroupProcessing'] as List).map((o) => GroupProcessingBean.fromMap(o))];
+    gGroupLeaderInfoBean.ImgUrl = map['ImgUrl'];
+    gGroupLeaderInfoBean.OrderInfos = [
+      ...(map['GroupProcessing'] as List)
+          .map((o) => GroupProcessingBean.fromMap(o))
+    ];
     return gGroupLeaderInfoBean;
   }
+
   Map toJson() => {
-    "Name": Name,
-    "Email": Email,
-    "About": About,
-    "FollowCount": FollowCount,
-    "Score": Score,
-    "CreateTimes": CreateTimes,
-    "ImgUrl":ImgUrl,
-    "GroupProcessing": OrderInfos,
-  };
+        "Name": Name,
+        "Email": Email,
+        "About": About,
+        "FollowCount": FollowCount,
+        "Score": Score,
+        "CreateTimes": CreateTimes,
+        "ImgUrl": ImgUrl,
+        "GroupProcessing": OrderInfos,
+      };
 }
+
 class GroupProcessingBean {
-  String IssueNo="";
-  String IssueCreateTime="";
-  String IssueEndTime="";
-  String OrderId="";
-  String OrderNo="";
-  String OrderName="";
-  int OrderType=0;
+  String IssueNo = "";
+  String IssueCreateTime = "";
+  String IssueEndTime = "";
+  String SendTime = "";
+  String GotTime = "";
+  String OfferTime = "";
+  String OrderId = "";
+  String OrderLeader = "";
+  int OrderStatus = 1;
+  String OrderNo = "";
+  String OrderName = "";
+  int OrderType = 0;
+  String OrderTypeName = "";
+  bool IsVisibleMoney = false;
+  bool IsAllowChangeAddress = false;
+  bool IsAllowCancel = false;
 
   static GroupProcessingBean fromMap(Map<String, dynamic> map) {
     GroupProcessingBean groupProcessingBean = GroupProcessingBean();
     groupProcessingBean.IssueNo = map['IssueNo'];
     groupProcessingBean.IssueCreateTime = map['IssueCreateTime'];
     groupProcessingBean.IssueEndTime = map['IssueEndTime'];
+    groupProcessingBean.SendTime = map['SendTime'];
+    groupProcessingBean.GotTime = map['GotTime'];
+    groupProcessingBean.OfferTime = map['OfferTime'];
     groupProcessingBean.OrderId = map['OrderId'];
     groupProcessingBean.OrderNo = map['OrderNo'];
+    groupProcessingBean.OrderLeader = map['OrderLeader'];
     groupProcessingBean.OrderName = map['OrderName'];
     groupProcessingBean.OrderType = map['OrderType'];
+    groupProcessingBean.OrderTypeName = map['OrderTypeName'];
+    groupProcessingBean.IsAllowChangeAddress = map['IsAllowChangeAddress'];
+    groupProcessingBean.IsAllowCancel = map['IsAllowCancel'];
+    groupProcessingBean.OrderStatus = map['OrderStatus'];
     return groupProcessingBean;
   }
 
   Map toJson() => {
-    "IssueNo": IssueNo,
-    "IssueCreateTime": IssueCreateTime,
-    "IssueEndTime": IssueEndTime,
-    "OrderId": OrderId,
-    "OrderNo": OrderNo,
-    "OrderName": OrderName,
-    "OrderType": OrderType,
-  };
+        "IssueNo": IssueNo,
+        "IssueCreateTime": IssueCreateTime,
+        "IssueEndTime": IssueEndTime,
+        "SendTime": SendTime,
+        "GotTime": GotTime,
+        "OfferTime": OfferTime,
+        "IsVisibleMoney": IsVisibleMoney,
+        "IsAllowChangeAddress": IsAllowChangeAddress,
+        "IsAllowCancel": IsAllowCancel,
+        "OrderId": OrderId,
+        "OrderNo": OrderNo,
+        "OrderStatus": OrderStatus,
+        "OrderLeader": OrderLeader,
+        "OrderName": OrderName,
+        "OrderType": OrderType,
+        "OrderTypeName": OrderTypeName,
+      };
 }
-
-
-
-
-
-

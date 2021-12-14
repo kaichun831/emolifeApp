@@ -1,6 +1,7 @@
 import 'package:emolife/action/login_screen_action.dart';
-import 'package:emolife/controller/app_controller.dart';
 import 'package:emolife/controller/sign_view_controller.dart';
+import 'package:emolife/tools/color_tools.dart';
+import 'package:emolife/tools/time_tools.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -8,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -18,12 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   var myDate = "2021-12-04T14:30:00";
   var endDate = "2021-12-05T14:30:00";
   var model = LoginScreenAction();
+
   // AppController _appController = Get.put(AppController());
   final SignViewController _controller = Get.put(SignViewController());
+
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
@@ -144,9 +147,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: SizedBox(
                   height: 20,
                 )),
-                const Text(
-                  "忘記密碼?",
-                  style: TextStyle(color: Colors.indigoAccent),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      "忘記密碼",
+                      style: TextStyle(color: Colors.indigoAccent),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    GestureDetector(
+                        child: const Text("註冊會員",
+                            style: TextStyle(color: Colors.indigoAccent)),
+                        onTap: () => _showRegister()),
+                  ],
                 ),
                 const Flexible(
                     child: SizedBox(
@@ -161,15 +176,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     onPressed: () async {
                       // Get.toNamed("/follow");
-
-                       _controller.callLogin().then((value) =>{
-                            if(value!){
-
-                            }else{
-
-                              // Get.snackbar(_controller.errorMsg,"")
-                            }
-                       });
+                      _controller.callLogin().then((result) => {
+                            if (result)
+                              TimeUtil.delay(1, () => Get.toNamed("/follow"))
+                            else
+                              Get.snackbar(_controller.errorMsg, "")
+                          });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
@@ -212,6 +224,194 @@ class _LoginScreenState extends State<LoginScreen> {
       onTap: () => SystemChannels.textInput.invokeMethod('TextInput.hide'),
     ));
   }
+
+  void _showRegister() {
+    showModalBottomSheet(
+        backgroundColor: Colors.transparent,
+        context: context,
+        isScrollControlled: true,
+        builder: (_) {
+          return DraggableScrollableSheet(
+              expand: false,
+              initialChildSize: 0.9,
+              minChildSize: 0.07,
+              maxChildSize: 0.9,
+              builder: (ctx, scrollController) {
+                return SingleChildScrollView(
+                    child: Container(
+                        height: MediaQuery.of(context).size.height,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey, width: 2),
+                            borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(30),
+                                topRight: Radius.circular(30)),
+                            color: Colors.white,
+                            boxShadow: [BoxShadow(color: Colors.black12)]),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Align(
+                                child: GestureDetector(
+                                  child: Text("取消",
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          color: Colors.grey.withAlpha(80))),
+                                  onTap: () => {Get.back()},
+                                ),
+                                alignment: Alignment.topLeft,
+                              ),
+                            ),
+                            const Text("註冊會員", style: TextStyle(fontSize: 24)),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(300),
+                                child: Image.asset(
+                                  'images/goods.png',
+                                  fit: BoxFit.cover,
+                                  height: MediaQuery.of(context).size.width / 3,
+                                  width: MediaQuery.of(context).size.width / 3,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const Text(
+                              "基本資訊",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 35, right: 35.0),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Divider(
+                                    height: 10,
+                                    thickness: 1,
+                                    color: Colors.grey.withAlpha(60),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                          width: 100,
+                                          child: Text(
+                                            "用戶姓名",
+                                            style: TextStyle(fontSize: 16),
+                                          )),
+                                      Expanded(
+                                          child: TextFormField(
+                                              decoration: const InputDecoration(
+                                        hintText: "Email",
+                                        border: InputBorder.none,
+                                      )))
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 10,
+                                    thickness: 1,
+                                    color: Colors.grey.withAlpha(60),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const SizedBox(
+                                          width: 100,
+                                          child: Text(
+                                            "連絡電話",
+                                            style: TextStyle(fontSize: 16),
+                                          )),
+                                      Expanded(
+                                          child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              textInputAction:
+                                                  TextInputAction.done,
+                                              decoration: const InputDecoration(
+                                                hintText: "0968-123456",
+                                                border: InputBorder.none,
+                                              )))
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 10,
+                                    thickness: 1,
+                                    color: Colors.grey.withAlpha(60),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                          width: 100,
+                                          child: Text(
+                                            "電子郵件",
+                                            style: TextStyle(fontSize: 16),
+                                          )),
+                                      Expanded(
+                                          child: TextFormField(
+                                              decoration: const InputDecoration(
+                                        hintText: "abcd@gmail.com",
+                                        border: InputBorder.none,
+                                      )))
+                                    ],
+                                  ),
+                                  Divider(
+                                    height: 10,
+                                    thickness: 1,
+                                    color: Colors.grey.withAlpha(60),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                          width: 100,
+                                          child: Text(
+                                            "生日",
+                                            style: TextStyle(fontSize: 16),
+                                          )),
+                                      Expanded(
+                                          child: TextFormField(
+                                              decoration: const InputDecoration(
+                                        hintText: "1990/01/01",
+                                        border: InputBorder.none,
+                                      )))
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text("加入開團"),
+                                    style: ElevatedButton.styleFrom(
+                                        fixedSize: Size(
+                                            MediaQuery.of(context).size.width /
+                                                1.1,
+                                            MediaQuery.of(context).size.height /
+                                                14),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0)),
+                                        primary: ColorUtil.mainRedColor()),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        )));
+              });
+        });
+  }
+
   Future<void> requestPermission(Permission permission) async {
     final status = await permission.request();
   }

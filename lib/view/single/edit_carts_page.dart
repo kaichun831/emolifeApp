@@ -14,7 +14,7 @@ class CartView extends StatefulWidget {
 
 class _CartViewState extends State<CartView> {
   final _controller = CartViewController();
-  var user = Constans.User;
+  var user ="KG";
   var _total = 0;
 
   @override
