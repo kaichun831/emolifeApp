@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "910567791406",
+    "project_id": "emolife-75afa",
+    "storage_bucket": "emolife-75afa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910567791406:android:7752e2b22b82d5bc0878bf",
+        "android_client_info": {
+          "package_name": "com.asuscomm.dylanwalkha.app.emolife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910567791406-0a06nshs4imqung2si1krig24n36g55n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.asuscomm.dylanwalkha.app.emolife",
+            "certificate_hash": "d0ebf8390f5ca13a858c0f73f6bcb9290dec9a13"
+          }
+        },
+        {
+          "client_id": "910567791406-bbk9ovbdi7o88ceccj4b6ui7f1npsmkk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvR2onHjWd2GaL8z8YsflgrdNWuzkRqZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910567791406-bbk9ovbdi7o88ceccj4b6ui7f1npsmkk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
